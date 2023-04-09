@@ -1,7 +1,28 @@
-//copiar y pegar
+Si estás agradecido con nuestras herramientas y te han sido de utilidad, te invitamos a considerar hacer una pequeña donación para invitarnos a un café. Esta contribución nos ayudará a seguir mejorando nuestras herramientas y a ofrecer un mejor soporte a nuestra comunidad. Tu generosidad y apoyo significan mucho para nosotros y nos motiva a seguir trabajando en nuevas soluciones y actualizaciones. ¡Gracias por considerar apoyarnos con una donación y por ser parte de nuestra comunidad!
+
+
+Ethereum (ETH) Address: 0x7eF78Db0c72114B7510bdb9fB993F4b0A571EAa2
+
+
+Bitcoin (BTC) Address:
+bc1qlswghxl7pnf6q8a8vzkvre7v8ayhcyr2kuwv6h
+
+XRP (XRP) Address:
+rbY8XFaNmsVY4N6377dmqeZSHAwxMW
+
+Cardano (ADA) Address: addr1qyl23s902zgg5p9z3w29ah2fjd5s3qns6edlgcw8wp889c374rq275ys3gz29zu5tmw5nymfpzp8p4jm73suwuzwwt3qlch98p
+
+Solana (SOL) Address: 2dhzmM8xJNeuKTWKFfgchCuYfHXeSNm4isF7iayNY3jp
+
+Dogecoin (DOGE) Address:
+DEjw3swpoifUzS69ZYSGV5aoQUagYuGpDq
+
+Tron (TRX) Address:
+THAtJW5bp1KDoRvgukJDKJ1v8UDyccBu4s
+---------------------------------------------------------------
 
 //@version=4
-study(title="SatoshiAlpha UT1", overlay = true)
+study(title="SatoshiAlpha 01", overlay = true)
 
 // Inputs
 a = input(1,     title = "Key Vaule. 'This changes the sensitivity'")
