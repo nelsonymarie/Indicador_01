@@ -1,0 +1,62 @@
+//copiar y pegar
+
+//@version=4
+study(title="SatoshiAlpha UT1", overlay = true)
+
+// Inputs
+a = input(1,     title = "Key Vaule. 'This changes the sensitivity'")
+c = input(10,    title = "ATR Period")
+h = input(false, title = "Signals from Heikin Ashi Candles")
+
+// EMA Inputs
+ema1_length = input(21, title="EMA 1 Length", minval=1)
+ema2_length = input(55, title="EMA 2 Length", minval=1)
+ema3_length = input(200, title="EMA 3 Length", minval=1)
+
+// RSI Input
+rsi_length = input(30, title="RSI Length", minval=1)
+
+xATR  = atr(c)
+nLoss = a * xATR
+
+src = h ? security(heikinashi(syminfo.tickerid), timeframe.period, close, lookahead = false) : close
+
+xATRTrailingStop = 0.0
+xATRTrailingStop := iff(src > nz(xATRTrailingStop[1], 0) and src[1] > nz(xATRTrailingStop[1], 0), max(nz(xATRTrailingStop[1]), src - nLoss),
+    iff(src < nz(xATRTrailingStop[1], 0) and src[1] < nz(xATRTrailingStop[1], 0), min(nz(xATRTrailingStop[1]), src + nLoss),
+    iff(src > nz(xATRTrailingStop[1], 0), src - nLoss, src + nLoss)))
+
+// EMAs
+ema1 = ema(src, ema1_length)
+ema2 = ema(src, ema2_length)
+ema3 = ema(src, ema3_length)
+
+// RSI
+rsi = rsi(src, rsi_length)
+
+// Buy and Sell Conditions
+aboveEMAs = src > ema1 and src > ema2 and src > ema3
+belowEMAs = src < ema1 and src < ema2 and src < ema3
+
+buy = aboveEMAs and crossover(src, xATRTrailingStop) and rsi > 50
+sell = belowEMAs and crossover(xATRTrailingStop, src) and rsi < 50
+
+// Plotting EMAs
+plot(ema1, color=color.blue, linewidth=2, title="EMA 1")
+plot(ema2, color=color.orange, linewidth=2, title="EMA 2")
+plot(ema3, color=color.red, linewidth=2, title="EMA 3")
+
+// Plotting Buy/Sell Signals
+plotshape(buy,  title = "Buy",  text = 'Buy',  style = shape.labelup,   location = location.belowbar, color= color.green, textcolor = color.white, transp = 0, size = size.tiny)
+plotshape(sell, title = "Sell", text = 'Sell', style = shape.labeldown, location = location.abovebar, color= color.red,   textcolor = color.white, transp = 0, size = size.tiny)
+
+// Bar Colors
+barcolor(buy  ? color.green : na)
+barcolor(sell ? color.red   : na)
+GcSGX6PQQ5KMSaP
+// Alerts
+// Alerts
+alertcondition(buy,  "Long",  "Long")
+alertcondition(sell, "Short", "Short")
+
+console.log("hello");
